@@ -1,5 +1,6 @@
 name: Java CI
 
+# Dispara em push ou pull request no branch main
 on:
   push:
     branches: [ main ]
@@ -8,29 +9,53 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
+    # 1️⃣ Fazer checkout do código
     - name: Checkout do código
       uses: actions/checkout@v3
 
+    # 2️⃣ Configurar JDK 17
     - name: Configurar JDK 17
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
 
+    # 3️⃣ Cache do Maven para acelerar builds
+    - name: Cache Maven
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
+    # 4️⃣ Build do projeto
     - name: Build com Maven
       run: mvn clean compile
 
-    - name: Rodar testes
-      run: mvn test
+    # 5️⃣ Rodar testes unitários com cobertura
+    - name: Rodar testes e gerar cobertura
+      run: mvn test jacoco:report
 
+    # 6️⃣ Gerar pacote .jar
     - name: Gerar pacote .jar
       run: mvn package
 
+    # 7️⃣ Upload do artefato .jar
     - name: Upload do artefato
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: meu-projeto-java
         path: target/*.jar
+
+    # 8️⃣ Upload do relatório de cobertura
+    - name: Upload relatório de cobertura
+      uses: actions/upload-artifact@v4
+      with:
+        name: cobertura
+        path: target/site/jacoco/*
