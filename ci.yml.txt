@@ -1,0 +1,2 @@
+mkdir -p .github/workflows
+notepad .github/workflows/ci.yml  # ou outro editor
