@@ -1,5 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -15,10 +17,10 @@
     <restassured.version>5.4.0</restassured.version>
     <jackson.version>2.16.1</jackson.version>
     <junit.jupiter.version>5.10.0</junit.jupiter.version>
+    <jacoco.version>0.8.11</jacoco.version>
   </properties>
 
   <dependencies>
-
     <!-- Rest Assured -->
     <dependency>
       <groupId>io.rest-assured</groupId>
@@ -27,7 +29,6 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- JSON Schema Validator (RestAssured) -->
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>json-schema-validator</artifactId>
@@ -35,7 +36,6 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- JSON Path -->
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>json-path</artifactId>
@@ -50,7 +50,7 @@
       <version>${jackson.version}</version>
     </dependency>
 
-    <!-- JUnit 5 (Jupiter) -->
+    <!-- JUnit 5 -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
@@ -58,17 +58,27 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- Hamcrest -->
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest</artifactId>
       <version>2.2</version>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 
   <build>
     <plugins>
+      <!-- Maven Compiler Plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
+      </plugin>
 
       <!-- Maven Surefire Plugin -->
       <plugin>
@@ -79,14 +89,28 @@
           <useModulePath>false</useModulePath>
         </configuration>
       </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-                <source>16</source>
-                <target>16</target>
-            </configuration>
-        </plugin>
+
+      <!-- Jacoco Plugin -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.version}</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
     </plugins>
   </build>
