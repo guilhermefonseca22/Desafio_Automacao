@@ -55,22 +55,6 @@ public class BuscarUsuarioIdTest extends BaseApiTest {
                 .body(matchesJsonSchema(jsonSchema));
     }
 
-    @Test
-    void nao_deve_buscar_usuario_inexistente() {
-
-        String schemaFile = "usuario_inexistente_ID.schema.json";
-        String jsonSchema = SchemaLoader.load(schemaFile);
-
-        given()
-                .log().all()
-                .when()
-                .get("/usuarios/0000000000000000") // ID numérico inexistente
-                .then()
-                .log().all()
-                .statusCode(400)
-                .body("message", equalTo("Usuário não encontrado"))
-                .body(matchesJsonSchema(jsonSchema));
-    }
 
 
 

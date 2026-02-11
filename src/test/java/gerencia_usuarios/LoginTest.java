@@ -16,10 +16,6 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
 public class LoginTest extends BaseApiTest
 {
 
-    @BeforeAll
-    static void setup() {
-        setBasePath("/login"); // define o basePath específico para esse teste
-    }
 
     @Test
     @DisplayName("Validar que é possivel efetuar um Login com sucesso")
@@ -36,7 +32,7 @@ public class LoginTest extends BaseApiTest
                 .log().all()
                 .body(jsonBody)
                 .when()
-                .post()
+                .post("/login")
                 .then()
                 .log().all()
                 .statusCode(200)
@@ -61,7 +57,7 @@ public class LoginTest extends BaseApiTest
                 .log().all()
                 .body(jsonBody)
                 .when()
-                .post()
+                .post("/login")
                 .then()
                 .log().all()
                 .statusCode(401)
