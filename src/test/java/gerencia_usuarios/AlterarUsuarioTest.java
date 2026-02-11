@@ -22,7 +22,7 @@ public class AlterarUsuarioTest extends BaseApiTest {
         String payloadAlteracao = PayloadLoader.load("usuario_post.json")
                 .replace("{{email}}", emailDinamico());
 
-        // 3️⃣ Executando PUT para alterar usuário
+        // Executando PUT para alterar usuário
         given()
                 .contentType(ContentType.JSON)
                 .log().all()
