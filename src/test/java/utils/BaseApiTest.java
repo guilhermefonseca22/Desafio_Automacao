@@ -22,21 +22,17 @@ public abstract class BaseApiTest {
         RestAssured.basePath = path;
     }
 
-    // Tornando a inner class estática para permitir métodos estáticos
-    public static class EmailUtils {
-
-        public static String emailDinamico() {
-            return "user_" + UUID.randomUUID() + "@qa.com.br";
-        }
+    // Utilitário para gerar email dinâmico
+    protected static String emailDinamico() {
+        return "user_" + UUID.randomUUID() + "@qa.com.br";
     }
 
-    public static String criarUsuario() {
-        // Garante uma criação de massa para o teste de delete utilizar
-
+    // Cria um usuário válido e retorna o ID
+    protected static String criarUsuario() {
         String payloadFile = "usuario_post.json";
 
         String jsonBody = PayloadLoader.load(payloadFile)
-                .replace("{{email}}", EmailUtils.emailDinamico());
+                .replace("{{email}}", emailDinamico());
 
         return given()
                 .contentType(ContentType.JSON)
@@ -48,5 +44,4 @@ public abstract class BaseApiTest {
                 .extract()
                 .path("_id");
     }
-
 }

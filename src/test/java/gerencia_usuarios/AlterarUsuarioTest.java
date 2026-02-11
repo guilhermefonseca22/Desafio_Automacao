@@ -9,21 +9,20 @@ import utils.PayloadLoader;
 
 import static io.restassured.RestAssured.given;
 
-
 public class AlterarUsuarioTest extends BaseApiTest {
 
     @Test
-    @DisplayName("Validar que é possivel alterar um usuario com sucesso")
+    @DisplayName("Validar que é possível alterar um usuário com sucesso")
     void alterar_usuario_com_sucesso() {
 
-
-        //  Gerando massa
+        // Criando massa
         String userId = criarUsuario();
 
-        // Alterando usuário criado
+        //Alterando payload
         String payloadAlteracao = PayloadLoader.load("usuario_post.json")
-                .replace("{{email}}", EmailUtils.emailDinamico());
+                .replace("{{email}}", emailDinamico());
 
+        // 3️⃣ Executando PUT para alterar usuário
         given()
                 .contentType(ContentType.JSON)
                 .log().all()
@@ -35,6 +34,4 @@ public class AlterarUsuarioTest extends BaseApiTest {
                 .statusCode(200)
                 .body("message", IsEqual.equalTo("Registro alterado com sucesso"));
     }
-
-
 }

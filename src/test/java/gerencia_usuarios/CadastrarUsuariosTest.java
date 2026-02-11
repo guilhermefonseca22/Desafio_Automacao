@@ -14,17 +14,17 @@ import static org.hamcrest.core.IsNull.notNullValue;
 
 public class CadastrarUsuariosTest extends BaseApiTest {
 
-
-
     @Test
-    @DisplayName("Validar que é possivel cadastrar um usuario com sucesso")
+    @DisplayName("Validar que é possível cadastrar um usuário com sucesso")
     void cadastrar_usuario_com_sucesso() {
+
 
         String payloadFile = "usuario_post.json";
         String schemaFile = "usuario_post_201.schema.json";
 
+        // Substituindo email dinâmico no payload
         String jsonBody = PayloadLoader.load(payloadFile)
-                .replace("{{email}}", EmailUtils.emailDinamico()); // email dinamico, garante que gera uma massa mova a cada teste
+                .replace("{{email}}", emailDinamico()); // atualizado para BaseApiTest
 
         String jsonSchema = SchemaLoader.load(schemaFile);
 
@@ -41,14 +41,4 @@ public class CadastrarUsuariosTest extends BaseApiTest {
                 .body("_id", notNullValue())
                 .body(matchesJsonSchema(jsonSchema));
     }
-
-
-
-
-    }
-
-
-
-
-
-
+}
