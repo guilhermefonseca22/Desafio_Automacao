@@ -60,25 +60,28 @@ O token é gerado automaticamente pelo `AuthManager` e utilizado nos testes prot
 # Estrutura do Projeto
 
 src/test/java
-│
-├── gerencia_usuarios
-│   └── AlterarUsuarioTest.java
-└── BuscarUsuarioIdTest.java
-└── CadastrarUsuariosTest.java
-└── ExcluirUsuarioTest.java
-└── ListarUsuariosTest.java
-└── LoginTest.java
-│
-└── utils
-    ├── AuthManager.java
-    ├── BaseApiTest.java
-    └── PayloadLoader.java
-    └── ResourceReader.java
-    └── SchemaLoader.java
-    │
-    └── resources
-    └── payloads
-    └── schemas
+
+Pacote: gerencia_usuarios
+Classes: 
+- AlterarUsuarioTest.java
+- BuscarUsuarioIdTest.java
+- CadastrarUsuariosTest.java
+- ExcluirUsuarioTest.java
+- ListarUsuariosTest.java
+- LoginTest.java
+ 
+Pacote: utils
+Classes: 
+- AuthManager.java
+- BaseApiTest.java
+- PayloadLoader.java
+- ResourceReader.java
+- SchemaLoader.java
+ 
+Pacote:resources
+Pacote:payloads
+Pacote:schemas
+
 
 
 #  Cenários Automatizados
