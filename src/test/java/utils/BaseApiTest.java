@@ -22,9 +22,8 @@ public abstract class BaseApiTest {
         RestAssured.basePath = path;
     }
 
-
-
-    public class EmailUtils {
+    // Tornando a inner class estática para permitir métodos estáticos
+    public static class EmailUtils {
 
         public static String emailDinamico() {
             return "user_" + UUID.randomUUID() + "@qa.com.br";
@@ -49,6 +48,5 @@ public abstract class BaseApiTest {
                 .extract()
                 .path("_id");
     }
-
 
 }

@@ -16,15 +16,16 @@ public class BuscarUsuarioIdTest extends BaseApiTest {
     @DisplayName("Validar que é possivel buscar um usuario pelo ID")
     void buscar_usuario_por_id_com_sucesso() {
 
+        // Cria um usuário para teste
+        String usuarioId = BaseApiTest.criarUsuario();
+
         String schemaFile = "usuario_get_id.schema.json";
         String jsonSchema = SchemaLoader.load(schemaFile);
-
-        String usuarioId = "0S4k4s2xyMLkFwlH";
 
         given()
                 .log().all()
                 .when()
-                .get("/usuarios/" + usuarioId)// Busca pelo usuario informado na variavel
+                .get("/usuarios/" + usuarioId)
                 .then()
                 .log().all()
                 .statusCode(200)
@@ -33,6 +34,7 @@ public class BuscarUsuarioIdTest extends BaseApiTest {
                 .body("_id", equalTo(usuarioId))
                 .body(matchesJsonSchema(jsonSchema));
     }
+
 
     @Test
     @DisplayName("Validar que ao buscar por um ID inexistente é apresentada a mensagem Usuário não encontrado ")
